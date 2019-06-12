@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--Vue.js初体验-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+</head>
+<style>
+    [v-cloak]{
+        display: none;
+    }
+</style>
+<body>
+<div id="app">
+    <p v-cloak>{{msg}}</p>
+    <input type="button" @click="show" :value="val">
+    <p>这个按钮被点击了{{sum}}次</p>
+</div>
+
+<div id="app-2">
+  <span :title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            msg:'hello',
+            msg2:'world',
+            val:'增加1',
+            sum:0,
+        },
+        methods:{
+            show(){
+                //alert('111');
+                this.sum++;
+                this.msg+=' xqq';
+            }
+        }
+    });
+    var app2 =new Vue({
+        el:"#app-2",
+        data:{
+            message: '页面加载于 ' + new Date().toLocaleString()
+        }
+    })
+</script>
+</html>

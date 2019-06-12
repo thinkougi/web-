@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二级导航菜单</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .nav{
+        width: 980px;
+        margin: 20px auto;
+        position: absolute;
+        left: 330px;
+        top: 200px;
+        /*justify-content: center;
+        align-items: center;*/
+    }
+    .nav ul li{
+        position: relative;
+        float: left;
+        width: 150px;
+        height: 50px;
+        list-style: none;
+    }
+    .nav ul li>a{
+        display: block;
+        width: 100%;
+        background: hotpink;
+        color: black;
+        font-size: 20px;
+        line-height: 50px;
+        text-align: center;
+    }
+    .nav ul li:hover>a{
+        background: aqua;
+    }
+    .nav dl{
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 50px;
+        width: 100%;
+    }
+    .nav dl dd{
+        background: #999;
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+    }
+    .nav dl dd a{
+        display: block;
+        width: 100%;
+        color: #fff;
+        font-size: 14px;
+        line-height: 50px;
+
+    }
+
+</style>
+<body>
+<div class="nav">
+    <ul>
+        <li><a href="#">导航1</a>
+            <dl>
+                <dd><a href="#">导航1-1</a></dd>
+                <dd><a href="#">导航1-2</a></dd>
+                <dd><a href="#">导航1-3</a></dd>
+            </dl>
+        </li>
+        <li><a href="#">导航2</a>
+            <dl>
+                <dd><a href="#">导航2-1</a></dd>
+                <dd><a href="#">导航2-2</a></dd>
+                <dd><a href="#">导航2-3</a></dd>
+            </dl>
+        </li>
+        <li><a href="#">导航3</a>
+            <dl>
+                <dd><a href="#">导航3-1</a></dd>
+                <dd><a href="#">导航3-2</a></dd>
+                <dd><a href="#">导航3-3</a></dd>
+            </dl>
+        </li>
+        <li><a href="#">导航4</a>
+            <dl>
+                <dd><a href="#">导航4-1</a></dd>
+                <dd><a href="#">导航4-2</a></dd>
+                <dd><a href="#">导航4-3</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="jq.js"></script>
+<script>
+    $(".nav ul li").mouseenter(function () {
+        $(this).find("dl").stop().slideDown();
+    }).mouseleave(function () {
+        $(this).find("dl").stop().slideUp();
+    })
+</script>
+</html>

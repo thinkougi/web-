@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符滚动_teacher</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="app1">
+    <!--
+        <p id="p1">猥琐发育，别浪！</p>
+    -->
+    <p>{{msg}}</p>
+    <input type="button" v-on:click="lang" :value="btn1">
+    <input type="button" v-on:click="stop" :value="btn2">
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app1",
+        data:{
+            btn1:'浪起来',
+            btn2:'发育',
+            msg:'猥琐发育，别浪！',
+            timer:null,
+        },
+        methods:{
+            lang(){
+                if(this.timer!==null) return;
+                this.timer=setInterval(()=>{
+                    var start = this.msg.substring(0,1);
+                    var end = this.msg.substring(1);
+                    this.msg=end+start;
+                },400)
+            },
+            stop(){
+            clearInterval(this.timer);
+            this.timer=null;
+            }
+        }
+    })
+</script>
+</html>

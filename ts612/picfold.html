@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--图片折叠实现手风琴导航-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手风琴导航</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .nav{
+        height: 260px;
+        width: 100%;
+        position: relative;
+        top: 180px;
+        margin: auto;
+        overflow: hidden;
+    }
+    .nav ul li{
+        position: relative;
+        float: left;
+        height: inherit;
+        width: calc(90% / 7);
+        list-style: none;
+        overflow: hidden;
+        left: 60px;
+    }
+</style>
+<body>
+<div class="nav">
+    <ul>
+        <li><img src="img/20150120_ifold1.jpg" alt=""></li>
+        <li><img src="img/20150120_ifold2.jpg" alt=""></li>
+        <li><img src="img/20150120_ifold3.jpg" alt=""></li>
+        <li><img src="img/20150120_ifold4.jpg" alt=""></li>
+        <li><img src="img/20150120_ifold5.jpg" alt=""></li>
+        <li><img src="img/20150120_ifold6.jpg" alt=""></li>
+        <li><img src="img/20150120_ifold7.jpg" alt=""></li>
+    </ul>
+</div>
+</body>
+<script src="jq.js"></script>
+<script>
+    $(".nav ul li").mouseenter(function () {
+        var w = (window.innerWidth*0.9-404)/6;
+        $(this).stop().animate({
+            width:"400px"
+        },500).siblings().stop().animate({
+            width:w+"px"
+        },500)
+    }).mouseleave(function () {
+        var w = window.innerWidth*0.9/7;
+        $(this).stop().animate({
+            width:w+"px"
+        },500).siblings().stop().animate({
+            width:w+"px"
+        },500)
+    })
+</script>
+</html>
