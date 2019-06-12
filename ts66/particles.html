@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>night</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            position: relative;
+            background:black;
+            background:linear-gradient(to bottom,#000000 0%,#5788fe 100%);
+
+        }
+        canvas{
+
+            background:linear-gradient(to bottom,#000000 0%,rebeccapurple 100%);
+            display: block;
+
+        }
+        .bottom-img{
+            width: 100%;
+            height: 250px;
+            background: url("xkbg.png") repeat-x;
+            position: absolute;
+            background-position:center bottom;
+            bottom: 0;
+        }
+        .filter{
+            width: 100%;
+            height: 100%;
+            position:absolute;
+            background:linear-gradient(to bottom,#000000 0%,#5788fe 100%);
+            left: 0;
+            top: 0;
+            z-index: 20;
+            animation: change 10s  ease-in-out infinite;
+            animation-fill-mode:both;
+            mix-blend-mode: overlay;
+        }
+        @keyframes change {
+            0% ,100%{
+        opacity: 0.1;
+        }
+        50%{
+        opacity: 0.9;
+        }
+        }
+    </style>
+</head>
+<body>
+<div class="filter"></div>
+<div class="bottom-img">
+
+</div>
+<canvas id="canvas">
+
+</canvas>
+
+</body>
+<script>
+
+    var canvas = document.getElementById("canvas");
+    var width = window.innerWidth;
+    canvas.width = width;
+    var height = window.innerHeight;
+    canvas.height=height;
+    var ctx = canvas.getContext('2d');
+    var num = 200;
+    var balls=[];
+    var cli={};
+    function init() {
+
+
+        for (let i = 0; i < num; i++) {
+            var obj=[];
+            obj.x = Math.random() * width;
+            obj.y = Math.random() * height;
+            obj.vx = Math.random()*2-1;
+            obj.vy = Math.random()*2-1;
+            balls.push(obj);
+            circle(obj.x, obj.y);
+
+        }
+
+    }
+
+    function circle(x,y) {
+        ctx.beginPath();
+        ctx.fillStyle='wheat';
+        ctx.arc(x,y,4,0,Math.PI*2,true);
+        ctx.fill();
+        ctx.closePath();
+        ctx.restore();
+    }
+    function move() {
+        ctx.clearRect(0,0,width,height);
+        for(let i=0;i<num;i++){
+            balls[i].x+=balls[i].vx;
+            balls[i].y+=balls[i].vy;
+            if(balls[i].x<0||balls[i].x>width){
+                balls[i].vx=-balls[i].vx;
+            }
+            if(balls[i].y<0||balls[i].y>height){
+                balls[i].vy=-balls[i].vy;
+            }
+            for(let j=i+1;j<num;j++){
+                if((Math.pow(balls[i].x-balls[j].x,2)+Math.pow(balls[i].y-balls[j].y,2))<=50*50){
+                    drawline(balls[i].x,balls[i].y,balls[j].x,balls[j].y);
+                }
+                if((Math.pow(cli.x-balls[j].x,2)+Math.pow(cli.y-balls[j].y,2))<=50*50){
+                    drawline(cli.x,cli.y,balls[j].x,balls[j].y);
+                }
+            }
+            circle(balls[i].x,balls[i].y);
+        }
+/*
+        setTimeout(move,100);
+*/
+        requestAnimationFrame(move);
+    }
+    function drawline(x1,y1,x2,y2) {
+        ctx.beginPath();
+        ctx.strokeStyle='snow';
+        ctx.lineWidth=1;
+        ctx.moveTo(x1,y1);
+        ctx.lineTo(x2,y2);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+    }
+    init();
+    move();
+
+    document.onmousemove=function (e) {
+        cli.x=e.clientX;
+        cli.y=e.clientY;
+    }
+</script>
+</html>

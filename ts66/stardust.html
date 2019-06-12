@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--"一闪一闪亮晶晶，满天都是xqq" XD she is so cute★-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stardust</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            background: #000;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+<script>
+    var canvas=document.getElementById('canvas');
+    var width=canvas.width=window.innerWidth;
+    var height=canvas.height=window.innerHeight;
+    var num =200;
+    var ctx = canvas.getContext('2d');
+    var sts=[];
+    var num2=15;
+    var ran=[];
+    function init() {
+        for(let i=0;i<num;i++){
+            var st = new stars();
+            st.draw();
+            sts.push(st);
+
+        }
+
+    }
+    function stars() {
+        this.x=Math.random()*width;
+        this.y=Math.random()*height;
+        this.color={};
+        this.text='xqq';
+        this.draw=function () {
+            ctx.fillStyle = this.color;
+            ctx.fillText(this.text, this.x, this.y);
+
+        };
+        this.getColor=function () {
+            var r = Math.random();
+            if(r<0.5){
+                this.color='wheat';
+            }else
+            {
+                this.color='black';
+            }
+        };
+        this.begin=function () {
+            this.getColor();
+        }
+    }
+    function playStar() {
+        ctx.clearRect(0,0,width,height);
+        for(let i=0;i<num;i++) {
+            sts[i].begin();
+            sts[i].draw();
+        }
+            setTimeout(playStar,100);
+    }
+
+    init();
+    playStar();
+
+
+</script>
+</html>

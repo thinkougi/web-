@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- 此版本有bug，弃置之-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stardust</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            background: #000;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+<script>
+    var canvas=document.getElementById('canvas');
+    var width=canvas.width=window.innerWidth;
+    var height=canvas.height=window.innerHeight;
+    var num =200;
+    var ctx = canvas.getContext('2d');
+    var sts=[];
+    var num2=15;
+    var ran=[];
+    function init() {
+        for(let i=0;i<num;i++){
+            var st = new stars();
+            st.draw();
+            sts.push(st);
+
+        }
+        for(let j=0;j<num2;j++){
+            var ran1=new rains();
+            ran1.initr();
+            ran1.drawline();
+            ran.push(ran1);
+            //console.log(ran[j]);
+        }
+    }
+    function stars() {
+        this.x=Math.random()*width;
+        this.y=Math.random()*height;
+        this.color={};
+        this.text='♥';
+        this.draw=function () {
+            ctx.fillStyle = this.color;
+            ctx.fillText(this.text, this.x, this.y);
+
+        };
+        this.getColor=function () {
+            var r = Math.random();
+            if(r<0.5){
+                this.color='red';
+            }else
+            {
+                this.color='black';
+            }
+        };
+        this.begin=function () {
+            this.getColor();
+        }
+    }
+    function playStar() {
+        ctx.clearRect(0,0,width,height);
+        for(let i=0;i<num;i++) {
+            sts[i].begin();
+            sts[i].draw();
+        }
+        setTimeout(playStar,100);
+    }
+    function playRains() {
+        for(let i=0;i<ran.length;i++){
+            //ran[i].start();
+            ran[i].move();
+
+            if(ran[i].y>height){
+                ctx.clearRect(ran[i].x,ran[i].y-ran[i].height,ran[i].x+ran[i].width,ran[i].y);
+
+                ran[i] = new rains();
+                //ran[i].start();
+                ran[i].drawline();
+            }
+        }
+        setTimeout(playRains,100);
+    }
+    function rains() {
+        this.x=1;
+        this.y=1;
+        this.len=1;
+        this.speed=1;
+        this.angle=30;
+        this.width=1;
+        this.height=1;
+        this.x_offset=1;
+        this.y_offset=1;
+        this.color1='';
+        this.color2='';
+        this.initr=function () {
+            this.x=Math.random()*width;
+            this.y=Math.random()*height;
+            this.angle=30;
+            this.getColors();
+            this.speed=Math.ceil(Math.random()*0.5);
+            this.len=Math.ceil(Math.random()*80+100);
+            var cos = Math.cos(this.angle*Math.PI/180);
+            var sin =Math.sin(this.angle*Math.PI/180);
+            this.width=this.len*cos;
+            this.height=this.len*sin;
+            this.x_offset=this.speed*cos;
+            this.y_offset=this.speed*sin;
+
+        };
+        this.getColors=function () {
+            var a = Math.ceil(255-Math.random()*240);
+
+            this.color1 = "rgba("+a+","+a+","+a+",1)";
+            this.color2="black";
+        };
+        /*
+                this.start=function () {
+                    this.getColors();
+                };
+        */
+        this.drawline=function () {
+            ctx.save();
+            ctx.beginPath();
+
+
+            ctx.lineWidth=2;
+            var grd = ctx.createLinearGradient(this.x,this.y,this.x+this.width,this.y-this.height);
+            grd.addColorStop(0,"white");
+            grd.addColorStop(0.5,this.color1);
+            grd.addColorStop(1,this.color2);
+            ctx.strokeStyle=grd;
+            ctx.moveTo(this.x,this.y);
+            ctx.lineTo(this.x+this.width,this.y-this.height);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+        };
+        this.currPos=function () {
+            this.x-=this.x_offset;
+            this.y+=this.y_offset;
+        };
+        this.move=function () {
+            //ctx.clearRect();
+            this.currPos();
+            this.drawline();
+
+        }
+    }
+    init();
+    playStar();
+    playRains();
+
+</script>
+</html>
