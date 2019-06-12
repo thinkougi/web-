@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--随便练习一些js循环题目-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var arr1=[];
+   for(let i=0;i<=100;i++){
+        arr1.push(i);
+    }
+    var sum=0;
+    /*arr.forEach(function (i) {
+        sum=sum+i;
+
+    });*/ //Q5
+    arr1.filter((value,key,arr)=>{
+        value%2===0?sum=sum:sum=sum+value;
+    });//Q6
+    console.log(sum);
+
+
+    /*var st='●';
+    var myarr = [];
+    for ( var i = 0; i < 8; i++) {
+        myarr.push(st);
+        for ( var j = 0; j < 8; j++) {
+            myarr.push(st);
+        }
+    }
+    myarr.forEach(function (i) {
+        myarr.forEach(function (j) {
+            console.log(myarr[i][j]);
+        })
+
+    });*/
+
+
+    for(let i=0;i<=50;i++){
+        for(let j=0;j<=100;j++){
+            for(let k=0;k<=100;k++){
+                if((i*2+j+0.5*k===100)&&(i+j+k===100)){
+                    console.log("大马："+i+"中马："+j+"小马："+k)
+                }
+            }
+        }
+    } //Q1
+
+    for(let i=0;i<7;i++){
+        for(let j=0;j<8;j++){
+            document.write("●");
+        }
+        document.write("<br/>");
+    } //Q3
+
+    for(let i=0;i<5;i++){
+        for(let j=-1;j<i;j++){
+            document.write("●");
+        }
+        document.write("<br/>");
+
+    } //Q4
+
+    let add=(...a)=>{
+        let sum =0;
+        a.forEach((val,index,array)=>{
+            sum+=val;
+        });
+        document.write(sum);
+    };
+    add(1,2,3,4,5);
+    //Q5
+
+
+    for(let i=100;i<=999;i++){
+        var a=Math.floor(i/100);
+        var b=Math.floor(i/10)%10;
+        var c=i%10;
+        if(a**3+b**3+c**3===i){
+            console.log(i);
+        }
+    }
+</script>
+</html>

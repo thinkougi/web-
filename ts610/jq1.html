@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- 一个存在小bug的皮皮方块-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点不到的方块</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        width: 100px;
+        height: 100px;
+        background: aquamarine;
+        position: absolute;
+        left: 450px;
+        top: 240px;
+    }
+</style>
+<body>
+<div>来点我啊</div>
+</body>
+<script src="jq.js"></script>
+<script>
+    $(document).ready(function () {
+        $("div").mousemove(function(e) {
+            var xx = e.originalEvent.x || e.originalEvent.layerX || 0;
+            var yy = e.originalEvent.y || e.originalEvent.layerY || 0;
+
+            $("div").mouseenter(function (e) {
+                var left=Math.random()*window.innerWidth>>0;
+                var top=Math.random()*window.innerHeight>>0;
+                var nowleft=parseInt($(this).css('left'));
+                var nowtop=parseInt($(this).css('top'));
+              //  if(left<=nowleft){
+                    left<=nowleft-100?left:nowleft-100;
+                    console.log(left);
+              //  }
+               // if(top<=nowtop){
+                    top<=nowtop-100?top:nowtop-100;
+              //  }
+               $("div").css({left:left+'px',top:top+'px'});
+                //$("div").css({left:'+=5px',top:'+=5px'});
+            });
+        });
+
+   })
+</script>
+</html>
