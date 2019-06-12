@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--今天没做出来，去看ts65做出来的-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜谱</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 1600px;
+            height: auto;
+            display: grid;
+            background: #FFFFFF;
+            position: relative;
+            /*display:flex;
+            justify-content:space-around;
+            align-items:center;*/
+        }
+        .div1{
+            width: inherit;
+            height: auto;
+            text-align: center;
+            float:left;
+            background: antiquewhite;
+            /*position: absolute;*/
+        }
+    </style>
+    <script src="oajax.js"></script>
+    <!--<script src="json.js"></script>-->
+    <script>
+        /*fn=function(a){
+            console.log(a);
+        }*/
+    ajax('GET','test.json',function(data){
+        //console.log(a);
+        //alert(a);
+        var json1 = JSON.parse(data);
+        var arr = json1.result.list;
+        var con = document.getElementsByClassName('container')[0];
+        //console.log(arr);
+        for(let i=0;i<10;i++){
+            var div = document.createElement('div');
+            div.className='div1';
+/*            for(let t=0;t<arr[i].material.length;t++){
+
+            }*/
+            div.innerHTML=`<h2>${arr[i].name}</h2>
+            <img src=${arr[i].pic}  alt=""/>
+            <p>介绍：${arr[i].content}</p>
+            <br>
+            <p>人数：${arr[i].peoplenum}</p>
+            <p>准备时间：${arr[i].preparetime}</p>
+            <p>烹饪时间：${arr[i].cookingtime}</p>
+
+            <br>
+            <p>标签：${arr[i].tag}</p>
+            <br>
+            <br>
+            `
+            con.appendChild(div);
+        }
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+    </div>
+</body>
+</html>
