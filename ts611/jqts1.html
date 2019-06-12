@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--爱心下落动画，度娘图片首页找的图，凑活看吧-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爱心动画</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        width: 500px;
+        height: 540px;
+        margin: 40px auto;
+        border: 1px black solid;
+        background: url("img/border1.jpg") no-repeat center center;
+        box-shadow: 0 0 30px hotpink;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .content{
+        width: 340px;
+        height: 300px;
+
+    }
+    .left,.right{
+        width: 50%;
+        height: inherit;
+        float: left;
+    }
+    ul{
+        width: 100%;
+    }
+    ul li{
+        list-style: none;
+        height: 34px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    #lt li div{
+        width: 30px;
+        height: 30px;
+        margin: 2px;
+        background: aqua url("img/heart.jpg");
+        float:right;
+    }
+    #rt li div{
+        width: 30px;
+        height: 30px;
+        margin: 2px;
+        background: aqua url("img/heart.jpg");
+        float:left;
+    }
+    .heart{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border-radius: 20px;
+/*
+        transform: translate(-50%,-50%);
+*/
+        margin-top: -120px;
+        margin-left: -90px;
+        animation: break 3s infinite;
+        opacity: 0;
+    }
+    @keyframes break {
+        0%{transform: scale(1)}
+        50%{transform: scale(1.3)}
+        100%{transform: scale(1)}
+    }
+</style>
+<body>
+<div class="container">
+    <img src="img/t2.jpg" alt="" class="heart" />
+<div class="content">
+    <div class="left">
+        <ul id="lt">
+            <li style="padding-right: 34px">
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+        <ul id="rt">
+            <li style="padding-left: 68px">
+                <div></div>
+                <div></div>
+            </li>
+            <li style="padding-left: 34px">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+                <div></div>
+            </li>
+            <li>
+                <div></div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+</div>
+</body>
+<script src="jq.js"></script>
+<script>
+    let num=0;
+    $(".content div li div").each(function () {
+        $(this).css({
+            top:'-200px',
+            position:'relative',
+            opacity:'0',
+        });
+        var t=Math.random()*2700>>0;
+        $(this).delay(t).animate({
+            top:'0',
+            opacity:'1',
+        },function () {
+            num++;
+            if(num===46){
+                $(".content").animate({
+                    opacity:0
+                },2000,function () {
+                    $(".heart").animate({
+                        opacity:1
+                })
+                })
+            }
+        })
+    });
+
+</script>
+</html>

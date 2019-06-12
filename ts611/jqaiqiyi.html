@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--模仿爱奇艺的图片轮播，懒得自适应分辨率了，自己看吧-_-\\-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爱奇艺轮播测试</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+/*
+    #container{
+        width: 100%;
+        height: 520px;
+        left: 0;
+        top: 0;
+        background: aqua;
+        justify-content: center;
+        align-items: center;
+    }
+*/
+    header{
+        height: 520px;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+    }
+    ul{
+        width: auto;
+        height: inherit;
+/*
+        right: 0;
+*/
+        top: 0;
+        display: block;
+    }
+    ul li{
+        list-style: none;
+    }
+    #image li{
+        height: 520px;
+        width: 100%;
+        display: none;
+    }
+    #text{
+        width: 260px;
+        position: absolute;
+        right: 40px;
+        top: 0;
+    }
+    #text li{
+        width: 260px;
+        height: 43px;
+        background: rgba(0,0,0,.5);
+        text-align: center;
+        line-height: 43px;
+
+    }
+    #text li a{
+        text-decoration: none;
+        font-size: 14px;
+        color: white;
+        display: block;
+    }
+    #text li.currtext a{
+        color: springgreen;
+
+        font-size: 16px;
+
+    }
+    #image li.currimg{
+        display: block;
+    }
+</style>
+<body>
+<!--
+<div id="container">
+-->
+<header>
+<ul id="image">
+    <li class="currimg"><img src="aiqiyi/aiqiyi1.jpg"  width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi2.jpg"  width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi3.jpg" width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi4.jpg" width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi5.jpg" width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi6.jpg" width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi7.jpg" width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi8.jpg" width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi9.jpg" width=1411px alt=""></li>
+    <li><img src="aiqiyi/aiqiyi10.jpg" width=1411px alt=""></li>
+</ul>
+<ul id="text">
+    <li class="currtext"><a href="#">少年派：张嘉译闫妮“练娃”记</a></li>
+    <li><a href="#">极限挑战：张艺兴热巴互卖食物</a></li>
+    <li><a href="#">何以为家：12岁男孩控告父母</a></li>
+    <li><a href="#">乐队：中国第一女鼓手燃爆全场</a></li>
+    <li><a href="#">筑梦情缘：其南函君携手搞事业</a></li>
+    <li><a href="#">唱作人：常石磊放言重回上位区</a></li>
+    <li><a href="#">临界天下：郑元畅张铭恩守玄沧</a></li>
+    <li><a href="#">奔跑吧：Baby冷静作战获赞</a></li>
+    <li><a href="#">白发：无忧再次求容乐相嫁</a></li>
+    <li><a href="#">我的真朋友：真真陪伴芃橙创业</a></li>
+</ul>
+<!--
+</div>
+-->
+</header>
+</body>
+<script src="jq.js"></script>
+<script>
+    var item = 0;
+
+    $("#text li").hover(function () {
+        item = $(this).index();
+    $(this).addClass('currtext').siblings().removeClass('currtext');
+    $("#image li").eq(item).addClass('currimg').siblings().removeClass('currimg');
+    clearInterval(timer)
+},function () {
+        timer = setInterval(autoplay,3000);
+    });
+    let autoplay=()=>{
+        $("#text li").eq(item).addClass('currtext').siblings().removeClass('currtext');
+        $("#image li").eq(item).addClass('currimg').siblings().removeClass('currimg');
+        item++;
+        if(item===10){
+            item=0;
+        }
+
+    };
+var timer=setInterval(autoplay,3000);
+</script>
+</html>
