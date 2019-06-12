@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--学写Grid布局-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #container{
+        /*width: 450px;
+        height: auto;*/
+        display: grid;
+        grid-template-columns: 100px 100px 100px ;
+        grid-template-rows: 100px 100px 100px;
+        /*grid-template-columns: repeat(3,150px);
+        grid-template-rows: repeat(3,150px);*/
+        /*grid-row-gap: 50px;
+        grid-column-gap: 50px;*/
+        /*justify-items: end;
+        align-items: center;*/
+    }
+    /*#container div{
+        border: black 1px solid;
+        background: aqua;
+    }*/
+    .item {
+        font-size: 4em;
+        text-align: center;
+        border: 1px solid #e5e4e9;
+    }
+
+    .item-1 {
+        background-color: #ef342a;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+    .item-2 {
+        background-color: #f68f26;
+    }
+
+    .item-3 {
+        background-color: #4ba946;
+    }
+
+    .item-4 {
+        background-color: #0376c2;
+    }
+
+    .item-5 {
+        background-color: #c077af;
+    }
+    .item-6 {
+        background-color: #f8d29d;
+    }
+    .item-7 {
+        background-color: saddlebrown;
+    }
+    .item-8 {
+        background-color: darkseagreen;
+    }
+    .item-9 {
+        background-color: aqua;
+    }
+</style>
+<body>
+<div>foo</div>
+<div id="container">
+<div class="item item-1">01</div>
+<div class="item item-2">02</div>
+<div class="item item-3">03</div>
+<div class="item item-4">04</div>
+<div class="item item-5">05</div>
+<div class="item item-6">06</div>
+<div class="item item-7">07</div>
+<div class="item item-8">08</div>
+<div class="item item-9">09</div>
+</div>
+<div>bar</div>
+</body>
+</html>

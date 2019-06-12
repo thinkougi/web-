@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--尝试ajax读取并处理数据-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>白菜谱</title>
+    <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css" />
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        min-height: 100vh;
+        display:flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .card{
+        width: 350px;
+        height: auto;
+        background: rgba(0,0,0,.6);
+        font-family: "微软雅黑",serif;
+        color: #FFF;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 15px;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    .card h3{
+        font-size: 16px;
+    }
+    .text-left{
+        text-align: left;
+    }
+    .fa{
+        color:aquamarine;
+        font-size: 30px;
+    }
+    .hide1, .hide2{
+        display: none;
+    }
+    .yl, .bz{
+        margin: 10px 0;
+        cursor: pointer;
+    }
+</style>
+<body id="body">
+
+</body>
+<script src="oajax.js"></script>
+<script>
+    var url = "test.json";
+    var body=document.getElementById("body");
+    var yl=document.getElementsByClassName("yl");
+    var bz=document.getElementsByClassName("bz");
+    var hide1=document.getElementsByClassName("hide1");
+    var hide2=document.getElementsByClassName("hide2");
+    var mix1=document.getElementsByClassName("mix1");
+    var mix2=document.getElementsByClassName("mix2");
+    ajax('GET',url,function(data){
+        var data1 = JSON.parse(data)
+        var msg = data1.result.list;
+        for(let i=0,len=msg.length;i<len;i++){
+            var div = document.createElement('div');
+            div.className='card';
+
+            var str1=`<div><img src=${msg[i].pic} alt="">
+                  <h3>${msg[i].name}</h3>
+                  <p>${msg[i].content}</p>
+                  </div>`;
+            var str2='';
+            for(let j=0,len=msg[i].material.length;j<len;j++){
+                str2+=`<p class="text-left">名称：${msg[i].material[j].mname}&nbsp;&nbsp;&nbsp;&nbsp;
+                        剂量：${msg[i].material[j].amount}</p>`;
+            }
+            var mixstr2=`<div class="yl">
+                <h3>原料：<i class="fa fa-arrow-down mix1" aria-hidden="true"></i></h3>
+                <div class="hide1">`+str2+`</div></div>`;
+            var str3='';
+            for(let k=0,len=msg[i].process.length;k<len;k++){
+                str3+=`<p class="text-left">${msg[i].process[k].pcontent}</p>
+                    <img src=${msg[i].process[k].pic} alt="">`
+            }
+            var mixstr3=` <div class='bz'>
+               <h3>步骤： <i class="fa fa-arrow-down mix2" aria-hidden="true"></i></h3>
+            <div class='hide2'>`+str3+`</div>
+               </div>`;
+            div.innerHTML=str1+mixstr2+mixstr3;
+            body.appendChild(div);
+        }
+        for(let i=0;i<yl.length;i++){
+            yl[i].onclick=function(){
+                if(getComputedStyle(hide1[i]).display==='none'){
+                    hide1[i].style.display='block';
+                }else{
+                    hide1[i].style.display='none';
+                }
+
+                if(mix1[i].className.indexOf('fa-arrow-down')!==-1){
+                    mix1[i].className='fa fa-arrow-up mix1';
+                }else{
+                    mix1[i].className='fa fa-arrow-down mix1';
+                }
+            };
+            bz[i].onclick=function(){
+                if(getComputedStyle(hide2[i]).display==='none'){
+                    hide2[i].style.display='block';
+                }else{
+                    hide2[i].style.display='none';
+                }
+
+                if(mix2[i].className.indexOf('fa-arrow-down')!==-1){
+                    mix2[i].className='fa fa-arrow-up mix2';
+                }else{
+                    mix2[i].className='fa fa-arrow-down mix2';
+                }
+            }
+
+        }
+
+    })
+</script>
+
+</html>
