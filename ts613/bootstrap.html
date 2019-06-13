@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--Vue和bootstrap的结合应用-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bootstrap学习</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    #app{
+        margin: 10%;
+    }
+</style>
+<body>
+<div id="app">
+    <form role="form">
+        <div class="form-group"></div>
+    插入id:<label>
+        <input type="text" v-model="msg" name="pid" class="form-control" />
+    </label>
+        名字:<label>
+        <input type="text" v-model="pname" name="pname" class="form-control"/>
+    </label>
+        <button type="button" class="btn btn-success" @click="add" >添加</button>
+        根据关键字搜索:<label>
+        <input type="text" id="key" v-model="keywords" class="form-control" />
+    </label>
+<!--
+        <button type="button" class="btn btn-success" @click="seek" >查找</button>
+-->
+    </form>
+
+
+    <table class="table table-hover" id="tab">
+        <tr>
+            <th>id</th>
+            <th>名字</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        <tbody>
+        <tr class="success" v-for="(item,key) in search(keywords)">
+     <!--   <tr v-for="(item,key) in list">-->
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.date}}</td>
+            <td class="danger"><button type="button" @click="remove(key)" class="btn btn-danger">删除</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let t = new Date();
+
+    var vm = new Vue({
+
+        el:'#app',
+        /*provide () {
+            return {
+                reload: this.reload
+            }
+        },
+        data1 () {
+            return {
+                isRouterAlive: true
+            }
+        },*/
+        data:{
+            list:[
+                {id:1,name:'Vigil',date:t.getFullYear()+'年'+(t.getMonth()+1)+'月'+t.getDate()+'日'+t.getHours()+'时'+t.getMinutes()+'分'+t.getSeconds()+'秒'+t.getMilliseconds()+'毫秒'},
+                {id:2,name:'Ela',date:t.getFullYear()+'年'+(t.getMonth()+1)+'月'+t.getDate()+'日'+t.getHours()+'时'+t.getMinutes()+'分'+t.getSeconds()+'秒'+t.getMilliseconds()+'毫秒'},
+                {id:3,name:'Bandit',date:t.getFullYear()+'年'+(t.getMonth()+1)+'月'+t.getDate()+'日'+t.getHours()+'时'+t.getMinutes()+'分'+t.getSeconds()+'秒'+t.getMilliseconds()+'毫秒'},
+
+            ],
+            msg:'',
+            pname:'',
+            keywords:'',
+        },
+        methods:{
+            /*reload () {
+                this.isRouterAlive = false;
+                this.$nextTick(function () {
+                    this.isRouterAlive = true
+                })},*/
+            add(){
+                var t = new Date();
+                this.list.push({id:this.msg,name:this.pname,date:t.getFullYear()+'年'+(t.getMonth()+1)+'月'+t.getDate()+'日'+t.getHours()+'时'+t.getMinutes()+'分'+t.getSeconds()+'秒'+t.getMilliseconds()+'毫秒'});
+
+                //data.list.id=document.getElementsByName('pid');
+                //data.list.name=document.getElementsByName('pname');
+                //this.list.push({id:document.getElementsByName('pid').value(),name:document.getElementsByName('pname').value(),date:new Date()});
+            },
+            remove(num){
+                this.list.splice(num,1);
+                //this.reload();
+            },
+            search(words){
+                var arr=[];
+                this.list.forEach((val,index)=>{
+                    if(val.name.indexOf(words)!==-1){
+                        arr.push(val);
+                    }
+                    }
+
+                );
+                return arr;
+            }
+           /* seek(){
+                var trs = document.getElementById('tab').tBodies[0].rows;
+                console.log(trs);
+                for(var i = 0; i < trs.length; i++){
+                    var tr = trs[i];
+                    if(tr.innerHTML.search(document.getElementById('key1').value) === -1)
+                        tr.style.display = 'none';
+                    //console.log(tr);}
+
+                else
+                        tr.style.display = '';
+                    //console.log(tr);
+
+                }
+            }*/
+        }
+    })
+</script>
+</html>

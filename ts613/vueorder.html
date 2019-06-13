@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--Vue自定义指令练习-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue指令</title>
+</head>
+<body>
+<div id="app">
+    <label for="input1"></label><input type="text" id="input1" v-focus v-color="'aqua'">
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    //document.getElementById('input1').focus();
+    Vue.directive('focus',{
+        inserted: function (el) {
+            el.focus()
+        }
+    });
+    Vue.directive('color',{
+        inserted:function (el,binding) {
+            //el.setAttribute('style','color:red;')
+            el.style.color=binding.value
+        }
+    });
+    var vm = new Vue({
+        el:'#app'
+    })
+</script>
+</html>

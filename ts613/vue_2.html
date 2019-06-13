@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--Vue基础指令练习-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue学习</title>
+</head>
+<body>
+<div id="app">
+    <p v-if="show">{{msg}}</p>
+    <p v-show="show">{{msg}}</p>
+    <button type="button" @click="cli">随机</button>
+    <p v-for="(item,key) in list">品种：{{item}} 序列号：{{key}}</p>
+    <p v-for="item in list1">{{item.title}}</p>
+
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'repository',
+            show:true,//v-if为false是直接删除节点，v-show为false是设置display属性
+            num:0,
+            list:['apple','banana','orange'],
+            list1:[
+                {title:'aaaa',content:'hahaha',hot:'true'},
+                {title:'abaa',content:'hahaha',hot:'true'},
+                {title:'aaca',content:'hahaha',hot:'true'},
+                {title:'aaad',content:'hahaha',hot:'true'},
+                {title:'eaaa',content:'hahaha',hot:'true'},
+
+            ]
+        },
+        methods:{
+            cli(){
+                this.num=Math.random();
+                this.show = this.num <= 0.5;//设置一个随机数来决定让show是否为true
+            }
+        }
+    })
+</script>
+</html>

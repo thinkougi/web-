@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--Vue过滤器练习-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue过滤器</title>
+</head>
+<body>
+    <div id="app">
+        {{msg|msgfilter(['厨师','老师','学生'])|xqq|msgfilter2}}
+    </div>
+    <div id="app2">
+        {{msg|msgfilter2}}
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+   /* Vue.filter('msgfilter',function (msg,arg) {
+        return msg.replace('撒手',arg);
+    });*/  //全局过滤器和局部过滤器的区别
+    Vue.filter('xqq',function (msg) {//她真可爱，居然定义这种名字的过滤器XD
+        return msg+='xqq';
+    });
+    Vue.filter('msgfilter2',function (msg) {
+        return msg.slice(-3);
+    });
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'我似一鸽没有感情的撒手'
+        },
+        filters:{
+            msgfilter(msg,arg){
+                return msg.replace('撒手',arg);//全局过滤器和局部过滤器的区别
+            }
+        }
+    });
+    var vm2 = new Vue({
+        el:'#app2',
+        data:{
+            msg:'我似一鸽没有感情的撒手，你好哇'
+        }
+    })
+</script>
+</html>
