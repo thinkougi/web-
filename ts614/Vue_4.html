@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--Vue组件基础-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Component Learning</title>
+</head>
+<body>
+<div id="app">
+    <my-com1></my-com1>
+</div>
+<template id="temp1">
+    <div>
+        <h3>
+            {{content}}
+        </h3>
+        <input type="button" value="增加" @click="show">
+    </div>
+</template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    Vue.component("myCom1",{
+        template:'#temp1',
+        data:function () {
+            return {
+                content:1
+            }
+
+
+        },
+        methods:{
+            show(){
+                this.content+=1
+            }
+        }
+    });
+    var vm = new Vue({
+        el:'#app',
+    })
+</script>
+</html>

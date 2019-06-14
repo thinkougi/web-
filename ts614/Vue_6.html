@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--子组件和父组件之间的传值及用法-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Component Learning</title>
+</head>
+<body>
+<div id="app">
+    <login :parentmsg="msg" :parentmsg2="msg2"></login>
+</div>
+<div id="app1">
+    <h3>{{webData}}</h3>
+    <opp @func="show"></opp>
+</div>
+<template id="temp1">
+    <div>
+        <input type="button" @click="childshow" value="点击传值">
+    </div>
+</template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'这是父组件的MSG',
+            msg2:'22222'
+        },
+        components:{
+            login:{
+                template:'<h2>这是子组件===={{parentmsg}}===={{parentmsg2}}</h2>',
+                props:['parentmsg','parentmsg2']
+            }
+        }
+    });
+    var vm1 = new Vue({
+        el:'#app1',
+        data:{
+            webData:'',
+            msg_1:'这是父组件的MSG1',
+            msg_2:'Vue好难学哦'
+        },
+        methods:{
+          show(data){
+              console.log('成功调用了父组件的方法');
+              console.log(data);
+              this.webData+=data;
+          }
+        },
+        components: {
+            opp:{
+                data:function () {
+                    return {
+                        childmsg:'Vue从入门到放弃'
+                    }
+                },
+                template: '#temp1',
+                methods: {
+                    childshow(){
+                        this.$emit('func',this.childmsg);
+                    }
+                }
+            }
+        }
+    })
+</script>
+</html>

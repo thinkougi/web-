@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--一个登录界面的草稿-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Component Learning</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div id="app">
+    <input type="button" @click="flag='login'" value="登录界面" class="btn btn-success">
+    <input type="button" @click="flag='register'" value="注册界面" class="btn btn-warning">
+    <input type="button" @click="flag='user'" value="用户条例" class="btn btn-info">
+    <component :is="flag"></component>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    Vue.component('login',{
+        template:'<div><h3>这是登录组件</h3><br>用户名：<input type="text" class="form-control" placeholder="请输入用户名"><br>密码：<input type="password" class="form-control" placeholder="请输入密码"></div>'
+    });
+    Vue.component('register',{
+        template:'<div><h3>这是注册组件</h3><br>新用户名：<input type="text" class="form-control" placeholder="请输入用户名"><br>密码：<input type="password" class="form-control" placeholder="请输入密码"><br>确认密码：<input type="password" class="form-control" placeholder="请确认密码"></div>'
+    });
+    Vue.component('user',{
+        template:'<h3>这是用户手册</h3>'
+    });
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:'login'
+        }
+    })
+</script>
+</html>

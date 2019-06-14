@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--Vue组件基础-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Learning</title>
+    <link rel="stylesheet" type="text/css" href="animate.css">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #app{
+        margin: 20%;
+    }
+</style>
+<body>
+<div id="app">
+    <my-com1></my-com1>
+    <my-com2></my-com2>
+    <my-com3></my-com3>
+    <button @click="show = !show" >
+        Toggle render
+    </button>
+    <transition name="slide-fade" enter-active-class="hinge" leave-active-class="hinge">
+        <p v-if="show">hello</p>
+    </transition></div>
+<div id="app1">
+    <xqq></xqq>
+</div>
+<template id="temp1">
+    <h3>Three method</h3>
+</template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    var com1 = Vue.extend({
+        template:'<h3>One method</h3>'
+    });
+    Vue.component("myCom1",com1);
+    Vue.component("myCom2",Vue.extend({//Vue.extend可省略
+        template:'<h3>Two method</h3>'
+    }));
+    Vue.component("myCom3",{
+        template:"#temp1"
+    });
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            show: true
+        },
+        components:{//私有组件
+
+        }
+    });
+    var xqq ={
+        template:'<h2>今天的xqq也是超可爱呀XD</h2>'
+    };
+    var vm1 = new Vue({
+        el:'#app1',
+        data:{
+
+        },
+        components: {//私有组件
+            'xqq': xqq
+        }
+    })
+</script>
+</html>

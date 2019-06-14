@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--利用Vue组件传值的方法写的一个超简易·伪·评论区-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>假装是个评论区</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    .container-top{
+        width: 400px;
+        margin-bottom: 40px;
+    }
+</style>
+<body>
+<div id="app">
+    <div class="container container-top">
+        <top v-on:func="getMsg"></top>
+    </div>
+
+    <div class="container">
+    <ul class="list-group">
+        <li v-for="item in list" class="list-group-item">
+            {{item.words}}
+            <span class="badge">评论人：{{item.name}}</span>
+        </li>
+    </ul>
+</div>
+</div>
+<template id="top1">
+    <div>
+        <form role="form">
+            <div class="form-group">
+                <label >姓名：</label>
+
+                    <input type="text" class="form-control"  v-model="name" placeholder="请输入名字">
+
+            </div>
+            <div class="form-group">
+                <label >评论：</label>
+
+                    <input type="text" class="form-control" v-model="article" placeholder="请输入内容">
+
+            </div>
+
+            <button type="button" class="btn btn-success" @click="sub">提交</button>
+        </form>
+    </div>
+</template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            list:[
+                {name:'太白',words:'郎骑竹马来'},
+                {name:'三变',words:'杨柳岸、晓风残月'},
+                {name:'容若',words:'何事秋风悲画扇'},
+                {name:'哦平平',words:'xqq真是太可爱了'},
+            ]
+        },
+        methods:{
+            getMsg(data){
+               // console.log(data);
+                this.list.push(data);
+
+            }
+        },
+        components:{
+            top:{
+                template:'#top1',
+                data:function(){
+                    return{
+                        name:'',
+                        article:''
+                    }
+                },
+                methods:{
+                    sub(){
+                        var obj = {
+                            name:this.name,
+                            words:this.article
+                        };
+                        this.$emit('func',obj)
+                    }
+                }
+            }
+        },
+    })
+</script>
+</html>
