@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--Vue Router基础-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VueRouter传参</title>
+    <link rel="stylesheet" type="text/css" href="animate.css">
+</head>
+<body>
+<div id="app">
+    <router-link to="/login/10/zs" tag="button">login</router-link>
+    <router-link to="/register" tag="button">register</router-link>
+    <transition enter-active-class="animated bounce" leave-active-class="animated hinge">
+        <router-view></router-view>
+    </transition>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    var login={
+        template:'<div>'+ '<h2>This is a login component{{num}}</h2>'+
+                '<p>{{$route.params.name}}</p>'+
+            '<input type="button" @click="show" value="show">'+'</div>',
+        data(){
+            return{
+                num:'',
+            }
+        },
+        methods:{
+            show(){
+                console.log(this.$route);
+                this.num = this.$route.params.id;
+                //this.num =parseInt(this.num);
+                //this.num+=1;
+            }
+        }
+    };
+    var register={
+        template: '<h2>This is a register component</h2>'
+    };
+    var routerObj = new VueRouter({
+        routes:[
+            {path:'/',redirect:'/login'},
+            {path:'/login/:id/:name',component:login},
+            {path:'/register',component:register}
+        ],
+        linActiveClass:'myactive',
+    });
+    var vm = new Vue({
+        el:'#app',
+        router:routerObj,
+    })
+</script>
+</html>

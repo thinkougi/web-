@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--ref的学习-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ref</title>
+</head>
+<body>
+<div id="app">
+    <p ref="p1">life life is beautiful</p>
+    <input type="button" @click="getp" value="获取p">
+    <login ref="login"></login>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    var login={
+      template:'<h3>she she is wonderful</h3>',
+        data(){
+          return{
+              msg:'life is beautiful'
+          }
+        },
+        methods: {
+          show(){
+              console.log('thank you, my twilight');
+          }
+        }
+
+    };
+var vm = new Vue({
+    el:'#app',
+    methods: {
+        getp() {
+            console.log(this.$refs.p1.innerText);
+            this.$refs.p1.style.color='aqua';
+            this.$refs.login.show();
+/*
+            console.log(this,$refs.login.data);
+*/
+        }
+    },
+    components:{
+        login
+    }
+})
+</script>
+</html>

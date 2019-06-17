@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--Vue Router基础-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>router</title>
+    <link rel="stylesheet" type="text/css" href="animate.css">
+</head>
+<style>
+    .myactive{
+        background: yellow;
+
+    }
+</style>
+<body>
+<div id="app">
+    <router-link to="/login" tag="button">login</router-link>
+    <router-link to="/register" tag="button">register</router-link>
+    <transition enter-active-class="animated bounce" leave-active-class="animated hinge">
+    <router-view></router-view>
+    </transition>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    var login={
+      template: '<h2>This is a login component</h2>'
+    };
+    var register={
+        template: '<h2>This is a register component</h2>'
+    };
+    var routerObj = new VueRouter({
+        routes:[
+            {path:'/login',component:login},
+            {path:'/register',component:register}
+        ],
+        linActiveClass:'myactive',
+    });
+    var vm = new Vue({
+        el:'#app',
+        router:routerObj,
+    })
+</script>
+</html>
